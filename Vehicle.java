@@ -9,7 +9,8 @@ public abstract class Vehicle implements Movable {
     /**
      * Color of the  car.
      */
-    private int direction=0; //the angle of the car. direction=0 is along the y-axis and
+    private int direction=270; //the angle of the car. direction=0 is along the x-axis and
+    //the increase in angle is counterclockwise
     /**
      * Specifies the x coordinate of the position of the car.
      */
@@ -135,8 +136,8 @@ public abstract class Vehicle implements Movable {
             System.out.println("Cannot move during transport");
             return;
         }
-        xcord = xcord + Math.sin(Math.toRadians(direction))*currentSpeed;
-        ycord = ycord + Math.cos(Math.toRadians(direction))*currentSpeed;
+        xcord = xcord + Math.cos(Math.toRadians(direction))*currentSpeed;
+        ycord = ycord + Math.sin(Math.toRadians(direction))*currentSpeed;
     }
     /**
      * Turns direction 90 degrees counter clockwise
@@ -146,7 +147,7 @@ public abstract class Vehicle implements Movable {
             System.out.println("Cannot turn during transport");
             return;
         }
-        direction = (direction+270) % 360;
+        direction = (direction+90) % 360;
     }
 
     /**
@@ -157,7 +158,7 @@ public abstract class Vehicle implements Movable {
             System.out.println("Cannot turn during transport");
             return;
         }
-        direction = (direction+90)%360;
+        direction = (direction+270)%360;
     }
 
     /**

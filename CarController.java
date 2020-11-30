@@ -44,15 +44,41 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
+                double carFutureXcord=car.getXcord()+car.getCurrentSpeed()*Math.round(Math.cos(Math.toRadians(car.getDirection()))*1000)/1000;
+                double carFutureYcord=car.getYcord()-car.getCurrentSpeed()*Math.sin(Math.toRadians(Math.round(car.getDirection()*1000)/1000));
+                System.out.println(Math.round(Math.cos(Math.toRadians(car.getDirection()))*1000)/1000);
+
+                if(carFutureXcord<0 || carFutureXcord>200){
+                    car.turnLeft();
+                    car.turnLeft();
+                    car.startEngine();
+                    System.out.println("TO CLOSE TO X");
+                  //  collision(car);
+                }
+                else if(carFutureYcord<0 || carFutureYcord>200){
+                    car.turnLeft();
+                    car.turnLeft();
+                    car.startEngine();
+                    System.out.println("TO CLOSE TO Y");
+                    //collision(car);
+                }
                 car.move();
                 int x = (int) Math.round(car.getXcord());
                 int y = (int) Math.round(car.getYcord());
+                System.out.println(carFutureYcord);
+                System.out.println(car.getYcord());
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
         }
     }
+
+   // void collision(car){
+     //   dobule direction = car.getDirection();
+
+      //  car.setPosition(ca)
+   // }
 
     // Calls the gas method for each car once
     void gas(int amount) {
