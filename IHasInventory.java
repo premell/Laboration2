@@ -8,7 +8,7 @@ public interface IHasInventory {
 
     double getCurrentSpeed();
 
-    double getDirection();
+    int getDirection();
 
     public boolean isReadyToBeLoaded();
 

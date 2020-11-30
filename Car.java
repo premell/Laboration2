@@ -13,9 +13,6 @@ public abstract class Car extends Vehicle implements Movable{
      * Engine power of the car.
      */
     private Color color; // Color of the car
-    /**
-     * Direction of the car. Direction =0 points the car along positive y-axis.
-    */
 
     /**
      * wheter the car is a regular sized car or not.

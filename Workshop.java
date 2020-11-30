@@ -83,7 +83,7 @@ public class Workshop<C extends ILoadable> implements IHasInventory {
     /**
      * @return the direction of the workshop
      */
-    public double getDirection(){
+    public int getDirection(){
         return direction;
     }
 //Ugh fy fan, hatar att ha den här här

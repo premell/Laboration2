@@ -95,10 +95,9 @@ public abstract class Vehicle implements Movable {
     /**
      * @return the direction of the vehilce
      */
-    public double getDirection(){
+    public int getDirection(){
         return direction;
     }
-
     /**
      * Set the vehicle to currently being transported
      */
@@ -136,8 +135,9 @@ public abstract class Vehicle implements Movable {
             System.out.println("Cannot move during transport");
             return;
         }
-        xcord = xcord + Math.cos(Math.toRadians(direction))*currentSpeed;
-        ycord = ycord + Math.sin(Math.toRadians(direction))*currentSpeed;
+        //minus sign because the canvas is upside down
+        xcord = xcord + currentSpeed*MathHelper.roundCos(direction);
+        ycord = ycord - currentSpeed*MathHelper.roundSin(direction);
     }
     /**
      * Turns direction 90 degrees counter clockwise
