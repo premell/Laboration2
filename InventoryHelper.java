@@ -85,9 +85,9 @@ public class InventoryHelper {
      */
     public static boolean gasAvailable(double bedAngle) {
         if(bedAngle<0.01 || bedAngle>-0.01){
-            System.out.println("Gas may only be applied when bed angle is set to 0");
             return true;
         }
+        System.out.println("Gas may only be applied when bed angle is set to 0");
         return false;
     }
 
@@ -101,6 +101,7 @@ public class InventoryHelper {
         if(isRaised){
             return true;
         }
+        System.out.println("Gas may only be applied when bed is raised");
         return false;
     }
 

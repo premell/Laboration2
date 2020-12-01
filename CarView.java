@@ -106,6 +106,16 @@ public class CarView extends JFrame{
         stopButton.setPreferredSize(new Dimension(windowWidth /5-15,200));
         this.add(stopButton);
 
+        //TODO
+        /*
+        Saab turbo on
+        Saab turbo off
+        Scania lift bed
+        Scania lower bed
+        start all cards
+        stop all cars
+         */
+
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         gasButton.addActionListener(new ActionListener() {
@@ -121,7 +131,33 @@ public class CarView extends JFrame{
                 carC.brake(inputAmount);
             }
         });
+        //Scania buttons
+       liftBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.liftBed();
+            }
+        });
+       lowerBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.lowerBed();
+            }
+        });
+        //All cars
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.startAllCars();
+            }
+        });
 
+       stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.stopAllCars();
+            }
+        });
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 

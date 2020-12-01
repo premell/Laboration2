@@ -77,7 +77,6 @@ public class Ferry extends Vehicle implements IHasInventory{
      */
     @Override
     public void gas(double amount){
-        System.out.println("is raised" + carInventory.getIsRaised());
         if(InventoryHelper.gasAvailable(carInventory.getIsRaised())){
             super.gas(amount);
         }
