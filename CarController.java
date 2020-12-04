@@ -57,7 +57,7 @@ public class CarController {
                     System.out.println("TO CLOSE TO X");
                   //  collision(car);
                 }
-                else if(carFutureYcord<0 || carFutureYcord>CarView.getWindowHeight()-60){
+                else if(carFutureYcord<0 || carFutureYcord>CarView.getWindowHeight()-300){
                     car.turnLeft();
                     car.turnLeft();
                     car.startEngine();
