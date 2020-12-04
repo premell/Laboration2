@@ -92,6 +92,24 @@ public class CarController {
         }
     }
 
+    void setTurboOn(){
+        for (Car car : cars){
+            if(car instanceof Saab95){
+                ((Saab95) car).setTurboOn();
+                System.out.println(((Saab95) car).getTurbo());
+            }
+        }
+    }
+    void setTurboOff(){
+        for (Car car : cars){
+            if(car instanceof Saab95){
+                ((Saab95) car).setTurboOff();
+                System.out.println(((Saab95) car).getTurbo());
+            }
+        }
+    }
+
+
     void liftBed(){
         for (Car car : cars){
             if(car instanceof Scania){

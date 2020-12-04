@@ -122,13 +122,28 @@ public class CarView extends JFrame{
                 carC.gas(inputAmount);
             }
         });
-
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 carC.brake(inputAmount);
             }
         });
+
+        //Saab buttons
+        turboOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.setTurboOn();
+            }
+        });
+        turboOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.setTurboOff();
+            }
+        });
+
+
         //Scania buttons
        liftBedButton.addActionListener(new ActionListener() {
             @Override
