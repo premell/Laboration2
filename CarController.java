@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +23,8 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
+    //ArrayList<Car> cars = new ArrayList<>();
+    ArrayList<Pair<Car,String>> carAndImagePaths = new ArrayList<>();
 
     //methods:
 
@@ -29,9 +32,9 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Saab95());
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Scania());
+        cc.carAndImagePaths.add(new Pair<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
+        cc.carAndImagePaths.add(new Pair<Car, String>(new Saab95(),"pics/Saab95.jpg"));
+        cc.carAndImagePaths.add(new Pair<Car, String>(new Scania(),"pics/Scania.jpg"));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -45,7 +48,9 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Car car : cars) {
+            for (Pair<Car, String> carAndImagePath : carAndImagePaths) {
+                Car car = carAndImagePath.getKey();
+                String imagePath = carAndImagePath.getValue();
                 double carFutureXcord=car.getXcord()+car.getCurrentSpeed()*MathHelper.roundCos(car.getDirection());
                 double carFutureYcord=car.getYcord()-car.getCurrentSpeed()*MathHelper.roundSin(car.getDirection());
 
@@ -67,18 +72,27 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getXcord());
                 int y = (int) Math.round(car.getYcord());
-                frame.drawPanel.moveit(x,y);
+                frame.drawPanel.setImagePosition(x,y,imagePath);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
+            //frame.drawPanel.nextFrame();
         }
     }
 
 
+    private ArrayList<Car> getCarsFromPairs(ArrayList<Pair<Car,String>> carAndImagePaths){
+        ArrayList<Car> cars = new ArrayList<>();
+        for(Pair<Car,String> elem : carAndImagePaths){
+            cars.add(elem.getKey());
+        }
+        return cars;
+    }
+
     // Calls the gas method for each car once
     void gas(int amount) {
         double gasAmount = ((double) amount) / 100;
-        for (Car car : cars
+        for (Car car : getCarsFromPairs(carAndImagePaths)
                 ) {
             car.gas(gasAmount);
         }
@@ -86,14 +100,14 @@ public class CarController {
 
     void brake(int amount){
         double brakeAmount = ((double) amount )/ 100;
-        for (Car car : cars
+        for (Car car : getCarsFromPairs(carAndImagePaths)
         ) {
             car.brake(brakeAmount);
         }
     }
 
     void setTurboOn(){
-        for (Car car : cars){
+        for (Car car : getCarsFromPairs(carAndImagePaths)){
             if(car instanceof Saab95){
                 ((Saab95) car).setTurboOn();
                 System.out.println(((Saab95) car).getTurbo());
@@ -101,7 +115,7 @@ public class CarController {
         }
     }
     void setTurboOff(){
-        for (Car car : cars){
+        for (Car car : getCarsFromPairs(carAndImagePaths)){
             if(car instanceof Saab95){
                 ((Saab95) car).setTurboOff();
                 System.out.println(((Saab95) car).getTurbo());
@@ -111,7 +125,7 @@ public class CarController {
 
 
     void liftBed(){
-        for (Car car : cars){
+        for (Car car : getCarsFromPairs(carAndImagePaths)){
             if(car instanceof Scania){
                 ((Scania) car).setTilt(70);
                 System.out.println(((Scania) car).getAngle());
@@ -120,7 +134,7 @@ public class CarController {
     }
 
     void lowerBed(){
-        for (Car car : cars){
+        for (Car car : getCarsFromPairs(carAndImagePaths)){
             if(car instanceof Scania){
                 ((Scania) car).setTilt(0);
                 System.out.println(((Scania) car).getAngle());
@@ -129,13 +143,13 @@ public class CarController {
     }
 
     void startAllCars(){
-        for (Car car : cars){
+        for (Car car : getCarsFromPairs(carAndImagePaths)){
             car.startEngine();
         }
     }
 
     void stopAllCars(){
-        for (Car car : cars){
+        for (Car car : getCarsFromPairs(carAndImagePaths)){
             car.stopEngine();
         }
     }
