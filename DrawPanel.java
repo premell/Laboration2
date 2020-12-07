@@ -44,7 +44,6 @@ public class DrawPanel extends JPanel{
         super.paintComponent(g);
         for(int i = 0 ; i < imagePoints.size() ; i++){
             g.drawImage(bufferedImages.get(i), (int)Math.round(imagePoints.get(i).getX())+100*i, (int)Math.round(imagePoints.get(i).getY()), null);
-            System.out.println("Ska vara 3" + bufferedImages.size());
         }
         imagePoints.clear();
         imageFilePaths.clear();
