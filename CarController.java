@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -21,26 +22,25 @@ public class CarController {
     private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
-    // A list of cars, modify if needed
-    //ArrayList<Car> cars = new ArrayList<>();
-    ArrayList<Pair<Car,String>> carAndImagePaths = new ArrayList<>();
+    ICarDrawer frame;
+
+    List<Pair<Car,String>> carAndImagePaths = new ArrayList<>();
 
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
-        CarController cc = new CarController();
+        CarController carController = new CarController();
 
-        cc.carAndImagePaths.add(new Pair<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
-        cc.carAndImagePaths.add(new Pair<Car, String>(new Saab95(),"pics/Saab95.jpg"));
-        cc.carAndImagePaths.add(new Pair<Car, String>(new Scania(),"pics/Scania.jpg"));
+        carController.carAndImagePaths.add(new Pair<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
+        carController.carAndImagePaths.add(new Pair<Car, String>(new Saab95(),"pics/Saab95.jpg"));
+        carController.carAndImagePaths.add(new Pair<Car, String>(new Scania(),"pics/Scania.jpg"));
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
+        carController.frame = new CarView("CarSim 1.0", carController);
 
         // Start the timer
-        cc.timer.start();
+        carController.timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
@@ -72,17 +72,16 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getXcord());
                 int y = (int) Math.round(car.getYcord());
-                frame.drawPanel.setImagePosition(x,y,imagePath);
+                frame.setImagePosition(x,y,imagePath);
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+                frame.repaint();
             }
-            //frame.drawPanel.nextFrame();
         }
     }
 
 
-    private ArrayList<Car> getCarsFromPairs(ArrayList<Pair<Car,String>> carAndImagePaths){
-        ArrayList<Car> cars = new ArrayList<>();
+    private List<Car> getCarsFromPairs(List<Pair<Car,String>> carAndImagePaths){
+        List<Car> cars = new ArrayList<>();
         for(Pair<Car,String> elem : carAndImagePaths){
             cars.add(elem.getKey());
         }

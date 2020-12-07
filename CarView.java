@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements ICarDrawer{
     private static final int windowWidth = 800;
     private static final int windowHeight = 800;
 
@@ -25,7 +25,7 @@ public class CarView extends JFrame{
     }
 
     // The controller member
-    CarController carC;
+    CarController carController;
 
     DrawPanel drawPanel = new DrawPanel(windowWidth, windowHeight -240);
 
@@ -48,8 +48,13 @@ public class CarView extends JFrame{
 
     // Constructor
     public CarView(String framename, CarController cc){
-        this.carC = cc;
+        this.carController = cc;
         initComponents(framename);
+    }
+
+    //Sets the position of a car image on the DrawPanel
+    public void setImagePosition(int x, int y, String imagePath){
+        drawPanel.setImagePosition(x,y,imagePath);
     }
 
     // Sets everything in place and fits everything
@@ -119,13 +124,13 @@ public class CarView extends JFrame{
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.gas(inputAmount);
+                carController.gas(inputAmount);
             }
         });
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.brake(inputAmount);
+                carController.brake(inputAmount);
             }
         });
 
@@ -133,13 +138,13 @@ public class CarView extends JFrame{
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.setTurboOn();
+                carController.setTurboOn();
             }
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.setTurboOff();
+                carController.setTurboOff();
             }
         });
 
@@ -148,27 +153,27 @@ public class CarView extends JFrame{
        liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.liftBed();
+                carController.liftBed();
             }
         });
        lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.lowerBed();
+                carController.lowerBed();
             }
         });
         //All cars
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.startAllCars();
+                carController.startAllCars();
             }
         });
 
        stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.stopAllCars();
+                carController.stopAllCars();
             }
         });
         // Make the frame pack all it's components by respecting the sizes if possible.
