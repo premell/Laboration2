@@ -14,8 +14,8 @@ import java.awt.event.ActionListener;
  **/
 
 public class CarView extends JFrame implements ICarDrawer{
-    private static final int windowWidth = 800;
-    private static final int windowHeight = 800;
+    private static final int windowWidth = 1000;
+    private static final int windowHeight = 1000;
 
     public static int getWindowWidth(){
         return windowWidth;
@@ -27,7 +27,8 @@ public class CarView extends JFrame implements ICarDrawer{
     // The controller member
     CarController carController;
 
-    DrawPanel drawPanel = new DrawPanel(windowWidth, windowHeight -240);
+    DrawPanel drawPanel = new DrawPanel(windowWidth-200, windowHeight -300);
+    SpeedMonitorPanel speedMonitorPanel = new SpeedMonitorPanel(180,windowHeight -300);
 
     JPanel controlPanel = new JPanel();
 
@@ -52,6 +53,10 @@ public class CarView extends JFrame implements ICarDrawer{
         initComponents(framename);
     }
 
+    public void updateSpeedLabel(double speed, String name){
+        speedMonitorPanel.updateSpeedLabel(speed,name);
+    }
+
     //Sets the position of a car image on the DrawPanel
     public void setImagePosition(int x, int y, String imagePath){
         drawPanel.setImagePosition(x,y,imagePath);
@@ -66,12 +71,13 @@ public class CarView extends JFrame implements ICarDrawer{
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
+        this.add(speedMonitorPanel);
 
         SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
+            new SpinnerNumberModel(0, //initial value
+                    0, //min
+                    100, //max
+                    1);//step
         gasSpinner = new JSpinner(spinnerModel);
         gasSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {

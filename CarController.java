@@ -72,6 +72,7 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getXcord());
                 int y = (int) Math.round(car.getYcord());
+                frame.updateSpeedLabel(car.getCurrentSpeed(),car.getModelName());
                 frame.setImagePosition(x,y,imagePath);
                 // repaint() calls the paintComponent method of the panel
                 frame.repaint();
