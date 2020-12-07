@@ -6,16 +6,16 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.List;
 
 // This panel represent the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel{
 
-    ArrayList<Point> imagePoints = new ArrayList<>();
-    ArrayList<String> imageFilePaths = new ArrayList<>();
-    ArrayList<BufferedImage> bufferedImages = new ArrayList<>();
+    List<Point> imagePoints = new ArrayList<>();
+    List<String> imageFilePaths = new ArrayList<>();
+    List<BufferedImage> bufferedImages = new ArrayList<>();
 
-    // TODO: Make this genereal for all cars
     void setImagePosition(int x, int y, String imageFilePath){
         Point point = new Point(x,y);
         imagePoints.add(point);
