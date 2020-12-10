@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +22,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     ICarDrawer frame;
 
-    List<Pair<Car,String>> carAndImagePaths = new ArrayList<>();
+    List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
 
     //methods:
 
@@ -32,9 +30,9 @@ public class CarController {
         // Instance of this class
         CarController carController = new CarController();
 
-        carController.carAndImagePaths.add(new Pair<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
-        carController.carAndImagePaths.add(new Pair<Car, String>(new Saab95(),"pics/Saab95.jpg"));
-        carController.carAndImagePaths.add(new Pair<Car, String>(new Scania(),"pics/Scania.jpg"));
+        carController.carAndImagePaths.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
+        carController.carAndImagePaths.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));
+        carController.carAndImagePaths.add(new PairFix<Car, String>(new Scania(),"pics/Scania.jpg"));
 
         // Start a new view and send a reference of self
         carController.frame = new CarView("CarSim 1.0", carController);
@@ -48,13 +46,13 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Pair<Car, String> carAndImagePath : carAndImagePaths) {
+            for (PairFix<Car, String> carAndImagePath : carAndImagePaths) {
                 Car car = carAndImagePath.getKey();
                 String imagePath = carAndImagePath.getValue();
                 double carFutureXcord=car.getXcord()+car.getCurrentSpeed()*MathHelper.roundCos(car.getDirection());
                 double carFutureYcord=car.getYcord()-car.getCurrentSpeed()*MathHelper.roundSin(car.getDirection());
 
-
+                //100 is the height of the picture
                 if(carFutureXcord<0 || carFutureXcord>CarView.getWindowWidth()-100){
                     car.turnLeft();
                     car.turnLeft();
@@ -81,9 +79,9 @@ public class CarController {
     }
 
 
-    private List<Car> getCarsFromPairs(List<Pair<Car,String>> carAndImagePaths){
+    private List<Car> getCarsFromPairs(List<PairFix<Car,String>> carAndImagePaths){
         List<Car> cars = new ArrayList<>();
-        for(Pair<Car,String> elem : carAndImagePaths){
+        for(PairFix<Car,String> elem : carAndImagePaths){
             cars.add(elem.getKey());
         }
         return cars;
