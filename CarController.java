@@ -13,11 +13,11 @@ import java.util.List;
 public class CarController {
     // member fields:
 
-    // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with an listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+
+    private Timer timer = new Timer(delay, new CarController.TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     ICarDrawer frame;
@@ -26,20 +26,7 @@ public class CarController {
 
     //methods:
 
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController carController = new CarController();
 
-        carController.carAndImagePaths.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
-        carController.carAndImagePaths.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));
-        carController.carAndImagePaths.add(new PairFix<Car, String>(new Scania(),"pics/Scania.jpg"));
-
-        // Start a new view and send a reference of self
-        carController.frame = new CarView("CarSim 1.0", carController);
-
-        // Start the timer
-        carController.timer.start();
-    }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
@@ -85,6 +72,10 @@ public class CarController {
             cars.add(elem.getKey());
         }
         return cars;
+    }
+
+    void startTimer(){
+        timer.start();
     }
 
     // Calls the gas method for each car once

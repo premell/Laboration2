@@ -115,16 +115,6 @@ public class CarView extends JFrame implements ICarDrawer{
         stopButton.setPreferredSize(new Dimension(windowWidth /5-15,200));
         this.add(stopButton);
 
-        //TODO
-        /*
-        Saab turbo on
-        Saab turbo off
-        Scania lift bed
-        Scania lower bed
-        start all cards
-        stop all cars
-         */
-
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         gasButton.addActionListener(new ActionListener() {
