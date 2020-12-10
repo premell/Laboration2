@@ -1,9 +1,8 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -17,10 +16,10 @@ public class CarView extends JFrame implements ICarDrawer{
     private static final int windowWidth = 1000;
     private static final int windowHeight = 1000;
 
-    public static int getWindowWidth(){
+    public int getWindowWidth(){
         return windowWidth;
     }
-    public static int getWindowHeight(){
+    public int getWindowHeight(){
         return windowHeight;
     }
 
@@ -33,19 +32,8 @@ public class CarView extends JFrame implements ICarDrawer{
     JPanel controlPanel = new JPanel();
 
     JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
     int inputAmount = 0;
     JLabel gasLabel = new JLabel("Amount");
-
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
-
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
     public CarView(String framename, CarController cc){
@@ -62,6 +50,30 @@ public class CarView extends JFrame implements ICarDrawer{
         drawPanel.setImagePosition(x,y,imagePath);
     }
 
+    public void addBottomPanel(String title,  List<JButton> buttons ){
+        this.setTitle(title);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new GridLayout(2, 4));
+        bottomPanel.setPreferredSize(new Dimension((windowWidth /2)+4, 200));
+        bottomPanel.setBackground(Color.CYAN);
+
+        for(JButton button:buttons)
+            bottomPanel.add(button);
+
+        this.add(bottomPanel);
+    }
+
+    public void addGasPanel(String title, JSpinner gasSpinner){
+       this.setTitle(title);
+
+        gasPanel.setLayout(new BorderLayout());
+        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
+        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
+
+        this.add(gasPanel);
+    }
+
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
@@ -73,24 +85,8 @@ public class CarView extends JFrame implements ICarDrawer{
         this.add(drawPanel);
         this.add(speedMonitorPanel);
 
-        SpinnerModel spinnerModel =
-            new SpinnerNumberModel(0, //initial value
-                    0, //min
-                    100, //max
-                    1);//step
-        gasSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                inputAmount = (int) ((JSpinner)e.getSource()).getValue();
-            }
-        });
 
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-
-        this.add(gasPanel);
-
+/*
         controlPanel.setLayout(new GridLayout(2,4));
 
         controlPanel.add(gasButton, 0);
@@ -172,6 +168,8 @@ public class CarView extends JFrame implements ICarDrawer{
                 carController.stopAllCars();
             }
         });
+
+ */
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
