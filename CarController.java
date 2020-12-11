@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -27,6 +28,7 @@ public class CarController {
     private JSpinner gasSpinner;
     private Timer timer = new Timer(delay, new CarController.TimerListener());
     protected List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
+    protected List<PairFix<Car,String>> allPossibleCars = new ArrayList<>();
 
     private int inputAmount;
 
@@ -107,6 +109,9 @@ public class CarController {
         JButton startButton = new JButton("Start all cars");
         JButton stopButton = new JButton("Stop all cars");
 
+        JButton addCarButton= new JButton("Add new car");
+        JButton removeCarButton = new JButton("Remove last added car");
+
         public CarControlButtons(){
             addButtonsToList();
             addMethodsToButtons();
@@ -124,6 +129,9 @@ public class CarController {
 
             buttons.add(startButton);
             buttons.add(stopButton);
+
+            buttons.add(addCarButton);
+            buttons.add(removeCarButton);
         }
         void addMethodsToButtons() {
             // This actionListener is for the gas button only
@@ -179,6 +187,19 @@ public class CarController {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     stopAllCars();
+                }
+            });
+
+            addCarButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    addCar();
+                }
+            });
+            removeCarButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    removeCar();
                 }
             });
 
@@ -282,6 +303,24 @@ public class CarController {
         for (Car car : getCarsFromPairs(carAndImagePaths)){
             car.stopEngine();
         }
+    }
+
+    void addCar(){
+        if(carAndImagePaths.size()>=10)
+            return;
+
+        Random rand = new Random();
+        PairFix<Car, String> carToAdd = allPossibleCars.get(rand.nextInt(allPossibleCars.size()));
+        carAndImagePaths.add(carToAdd);
+    }
+
+    void removeCar(){
+        carAndImagePaths.remove(carAndImagePaths.size()-1);
+    }
+
+    void printPossibleCars(){
+        System.out.println(allPossibleCars);
+
     }
 
 }

@@ -12,6 +12,11 @@ public class ApplicationMain {
         //CarView now takes in a carController instead of the otherway around
         CarController carController = new CarController();
 
+        //All cars that is possible to add with the "add car button"
+        carController.allPossibleCars.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
+        carController.allPossibleCars.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));
+        carController.allPossibleCars.add(new PairFix<Car, String>(new Scania(),"pics/Scania.jpg"));
+
         carController.carAndImagePaths.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
         carController.carAndImagePaths.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));
         carController.carAndImagePaths.add(new PairFix<Car, String>(new Scania(),"pics/Scania.jpg"));

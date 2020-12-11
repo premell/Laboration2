@@ -54,7 +54,7 @@ public class CarView extends JFrame implements ICarDrawer{
         this.setTitle(title);
 
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(2, 4));
+        bottomPanel.setLayout(new GridLayout(2, 5));
         bottomPanel.setPreferredSize(new Dimension((windowWidth /2)+4, 200));
         bottomPanel.setBackground(Color.CYAN);
 
