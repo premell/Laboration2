@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /*
@@ -27,7 +28,8 @@ public class CarController {
     private JSpinner gasSpinner;
     //private Timer timer = new Timer(delay, new CarController.TimerListener());
     private Timer singletonTimer = SingletonTimer.initTimer(delay,new CarController.TimerListener());
-    protected List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
+    //protected List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
+    protected CarContainer carAndImagePaths = new CarContainer();
 
     private int inputAmount;
     //methods:
@@ -37,7 +39,8 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (PairFix<Car, String> carAndImagePath : carAndImagePaths) {
+            for (Iterator<PairFix<Car, String>> it = carAndImagePaths.iterator(); it.hasNext(); ) {
+                PairFix<Car, String> carAndImagePath = it.next();
                 Car car = carAndImagePath.getKey();
                 String imagePath = carAndImagePath.getValue();
                 double carFutureXcord=car.getXcord()+car.getCurrentSpeed()*MathHelper.roundCos(car.getDirection());
@@ -194,10 +197,10 @@ public class CarController {
         }
     }
 
-    private List<Car> getCarsFromPairs(List<PairFix<Car,String>> carAndImagePaths){
+    private List<Car> getCarsFromPairs(CarContainer carAndImagePaths){
         List<Car> cars = new ArrayList<>();
-        for(PairFix<Car,String> elem : carAndImagePaths){
-            cars.add(elem.getKey());
+        for (Iterator<PairFix<Car, String>> it = carAndImagePaths.iterator(); it.hasNext(); ) {
+            cars.add(it.next().getKey());
         }
         return cars;
     }
