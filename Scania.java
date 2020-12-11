@@ -1,11 +1,11 @@
 import java.awt.*;
 
-public class Scania extends Car implements ILoadable {
+public final class Scania extends Car implements ILoadable {
 
     /**
     * created the bed object
      */
-    private TiltableBed tiltableBed;
+    private final TiltableBed tiltableBed;
 
     /**
      * Sets parameters for Scania

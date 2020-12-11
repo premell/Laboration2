@@ -34,16 +34,6 @@ public abstract class Car extends Vehicle implements Movable{
         setDoors(nrDoors);
     }
 
-    public Car clone() {
-        Car car = null;
-        try {
-            car = (Car) super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.err.println(e);
-        }
-        return car;
-    }
-
     /**
      * Private setter for constructor with conditions for the set value
      * @param nrdoors
@@ -75,10 +65,4 @@ public abstract class Car extends Vehicle implements Movable{
         return color;
     }
 
-    /**
-     * @param clr color of object
-     */
-    public void setColor(Color clr){
-	    color = clr;
-    }
 }

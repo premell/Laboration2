@@ -1,4 +1,4 @@
-public class TiltableBed{
+public final class TiltableBed{
 
     private double angle;
     private Scania bedOwner;
