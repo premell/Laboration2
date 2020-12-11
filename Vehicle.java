@@ -233,16 +233,17 @@ public abstract class Vehicle implements Movable {
      * Calls incrementSpeed(amount) if amount is between 0 and 1. Otherwise printing error message.
      * @param amount Specifies amount of which to increment speed.
      */
-    public void gas(double amount){
-        if(beingTransported==true){
+    public void gas(double amount) {
+        if (beingTransported == true) {
             System.out.println("Cannot drive during transport");
-            return;
-        }
-        else if(amount>1.0 || amount<0.0) {
+
+        } else if (amount > 1.0 || amount < 0.0) {
             System.out.println(amount + " was an invalid input since the input has to be a double between 0 and 1");
-            return;
+
+        } else {
+            incrementSpeed(amount);
+            System.out.println("I hit the gas: " + this.hashCode());
         }
-        incrementSpeed(amount);
     }
 
 

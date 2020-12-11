@@ -13,9 +13,9 @@ public class ApplicationMain {
         CarController carController = new CarController();
 
         //All cars that is possible to add with the "add car button"
-        carController.allPossibleCars.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
-        carController.allPossibleCars.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));
-        carController.allPossibleCars.add(new PairFix<Car, String>(new Scania(),"pics/Scania.jpg"));
+        carController.allPossibleCars.add(new PairFix<String, String>("VOLVO240","pics/Volvo240.jpg"));
+        carController.allPossibleCars.add(new PairFix<String, String>("SAAB95","pics/Saab95.jpg"));
+        carController.allPossibleCars.add(new PairFix<String, String>("SCANIA","pics/Scania.jpg"));
 
         carController.carAndImagePaths.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
         carController.carAndImagePaths.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));

@@ -28,7 +28,7 @@ public class CarController {
     private JSpinner gasSpinner;
     private Timer timer = new Timer(delay, new CarController.TimerListener());
     protected List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
-    protected List<PairFix<Car,String>> allPossibleCars = new ArrayList<>();
+    protected List<PairFix<String,String>> allPossibleCars = new ArrayList<>();
 
     private int inputAmount;
 
@@ -313,8 +313,9 @@ public class CarController {
             return;
 
         Random rand = new Random();
-        PairFix<Car, String> carToAdd = allPossibleCars.get(rand.nextInt(allPossibleCars.size()));
-        carAndImagePaths.add(carToAdd);
+        PairFix<String, String> carToAdd = allPossibleCars.get(rand.nextInt(allPossibleCars.size()));
+        System.out.println(carToAdd.getKey().getClass());
+        carAndImagePaths.add(new PairFix<Car,String>(CarFactory.getCar(carToAdd.getKey()),carToAdd.getValue()));
     }
 
     void removeCar(){
