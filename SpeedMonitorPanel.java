@@ -24,7 +24,7 @@ public class SpeedMonitorPanel extends JPanel {
     som görs ifrån CarView(som får kommando från CarController).
      */
 
-    private int maxSpeedLabels=5;
+    private int maxSpeedLabels=10;
     List<JLabel> speedIndicators = new ArrayList<>();
     private int modifyingLabelIndex;
 
@@ -33,7 +33,7 @@ public class SpeedMonitorPanel extends JPanel {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.gray);
-        this.setLayout(new GridLayout(5,1));
+        this.setLayout(new GridLayout(10,1));
         for(int i=0;i<maxSpeedLabels;i++){
             speedIndicators.add(new JLabel());
             this.add(speedIndicators.get(i));
