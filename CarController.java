@@ -41,6 +41,9 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            if(carAndImagePaths.size()==0){
+                frame.repaint();
+            }
             for (PairFix<Car, String> carAndImagePath : carAndImagePaths) {
                 Car car = carAndImagePath.getKey();
                 String imagePath = carAndImagePath.getValue();
