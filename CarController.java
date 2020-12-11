@@ -25,14 +25,12 @@ public class CarController {
 
     private CarControlButtons controlButtons;
     private JSpinner gasSpinner;
-    private Timer timer = new Timer(delay, new CarController.TimerListener());
+    //private Timer timer = new Timer(delay, new CarController.TimerListener());
+    private Timer singletonTimer = SingletonTimer.initTimer(delay,new CarController.TimerListener());
     protected List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
 
     private int inputAmount;
-
     //methods:
-
-
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
@@ -206,7 +204,7 @@ public class CarController {
 
     //Not sure if this should be here
     void startTimer(){
-        timer.start();
+        singletonTimer.start();
     }
 
     JSpinner getGasSpinner(){
