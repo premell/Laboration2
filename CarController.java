@@ -315,6 +315,9 @@ public class CarController {
     }
 
     void removeCar(){
+        if(carAndImagePaths.size()<=0)
+            return;
+
         carAndImagePaths.remove(carAndImagePaths.size()-1);
     }
 
