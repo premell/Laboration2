@@ -242,7 +242,6 @@ public abstract class Vehicle implements Movable {
 
         } else {
             incrementSpeed(amount);
-            System.out.println("I hit the gas: " + this.hashCode());
         }
     }
 

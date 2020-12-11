@@ -314,7 +314,6 @@ public class CarController {
 
         Random rand = new Random();
         PairFix<String, String> carToAdd = allPossibleCars.get(rand.nextInt(allPossibleCars.size()));
-        System.out.println(carToAdd.getKey().getClass());
         carAndImagePaths.add(new PairFix<Car,String>(CarFactory.getCar(carToAdd.getKey()),carToAdd.getValue()));
     }
 
