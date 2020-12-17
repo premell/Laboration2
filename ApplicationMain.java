@@ -17,9 +17,9 @@ public class ApplicationMain {
         carController.allPossibleCars.add(new PairFix<String, String>("SAAB95","pics/Saab95.jpg"));
         carController.allPossibleCars.add(new PairFix<String, String>("SCANIA","pics/Scania.jpg"));
 
-        carController.carAndImagePaths.add(new PairFix<Car, String>(new Volvo240(),"pics/Volvo240.jpg"));
-        carController.carAndImagePaths.add(new PairFix<Car, String>(new Saab95(),"pics/Saab95.jpg"));
-        carController.carAndImagePaths.add(new PairFix<Car, String>(new Scania(),"pics/Scania.jpg"));
+        carController.carAndImagePaths.add(new PairFix<Car, String>(CarFactory.getCar("VOLVO240"),"pics/Volvo240.jpg"));
+        carController.carAndImagePaths.add(new PairFix<Car, String>(CarFactory.getCar("SAAB95"),"pics/Saab95.jpg"));
+        carController.carAndImagePaths.add(new PairFix<Car, String>(CarFactory.getCar("SCANIA"),"pics/Scania.jpg"));
 
         // Start a new view and send a reference of self
         carController.frame = new CarView("CarSim 0.0", carController);

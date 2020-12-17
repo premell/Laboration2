@@ -1,6 +1,5 @@
 public class CarFactory {
 
-
     public static Car getCar(String shapeType){
         if(shapeType == null){
             return null;
@@ -16,6 +15,4 @@ public class CarFactory {
         }
         return null;
     }
-
-
 }
