@@ -22,7 +22,8 @@ public class DrawPanel extends JPanel{
         imageFilePaths.add(imageFilePath);
 
         try {
-            bufferedImages.add(ImageIO.read(DrawPanel.class.getResourceAsStream(imageFilePath)));
+            //bufferedImages.add(ImageIO.read(DrawPanel.class.getResourceAsStream(imageFilePath)));
+            bufferedImages.add(ImageIO.read(new File(imageFilePath)));
 
         } catch (IOException ex)
         {

@@ -22,13 +22,18 @@ public class CarController {
     // each step between delays.
 
     // The frame that represents this instance View of the MVC pattern
-    protected ICarDrawer frame;
 
+    // protected ICarDrawer frame;
+
+    private List<ICarDrawer> observers;
+
+    protected static List<PairFix<String,String>> allPossibleCars = new ArrayList<>();
     private CarControlButtons controlButtons;
     private JSpinner gasSpinner;
     private Timer timer = new Timer(delay, new CarController.TimerListener());
-    protected List<PairFix<Car,String>> carAndImagePaths = new ArrayList<>();
-    protected List<PairFix<String,String>> allPossibleCars = new ArrayList<>();
+
+
+    private CarModel carModel;
 
     private int inputAmount;
 
@@ -41,40 +46,15 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if(carAndImagePaths.size()==0){
-                frame.repaint();
-            }
-            for (PairFix<Car, String> carAndImagePath : carAndImagePaths) {
-                Car car = carAndImagePath.getKey();
-                String imagePath = carAndImagePath.getValue();
-                double carFutureXcord=car.getXcord()+car.getCurrentSpeed()*MathHelper.roundCos(car.getDirection());
-                double carFutureYcord=car.getYcord()-car.getCurrentSpeed()*MathHelper.roundSin(car.getDirection());
-
-                //100 is the height of the picture
-                if(carFutureXcord<0 || carFutureXcord>frame.getWindowWidth()-100){
-                    car.turnLeft();
-                    car.turnLeft();
-                    car.startEngine();
-                    System.out.println("TO CLOSE TO X");
-                  //  collision(car);
-                }
-                else if(carFutureYcord<0 || carFutureYcord>frame.getWindowHeight()-300){
-                    car.turnLeft();
-                    car.turnLeft();
-                    car.startEngine();
-                    System.out.println("TO CLOSE TO Y");
-                    //collision(car);
-                }
-                car.move();
-                int x = (int) Math.round(car.getXcord());
-                int y = (int) Math.round(car.getYcord());
-                frame.updateSpeedLabel(car.getCurrentSpeed(),car.getModelName());
-                frame.setImagePosition(x,y,imagePath);
-                // repaint() calls the paintComponent method of the panel
-                frame.repaint();
-            }
+            CarModel.moveCars();
         }
     }
+
+
+    public void addObserver(ICarDrawer observer){
+        observers.add(observer);
+    }
+
     private class GasSpinner{
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(0, //initial value
@@ -211,21 +191,12 @@ public class CarController {
         void stylizeButtons() {
             startButton.setBackground(Color.blue);
             startButton.setForeground(Color.green);
-            startButton.setPreferredSize(new Dimension(frame.getWindowWidth() / 5 - 15, 200));
+            startButton.setPreferredSize(new Dimension(CarModel.frameWidth / 5 - 15, 200));
 
             stopButton.setBackground(Color.red);
             stopButton.setForeground(Color.black);
-            stopButton.setPreferredSize(new Dimension(frame.getWindowWidth() / 5 - 15, 200));
-
+            stopButton.setPreferredSize(new Dimension(CarModel.frameWidth / 5 - 15, 200));
         }
-    }
-
-    private List<Car> getCarsFromPairs(List<PairFix<Car,String>> carAndImagePaths){
-        List<Car> cars = new ArrayList<>();
-        for(PairFix<Car,String> elem : carAndImagePaths){
-            cars.add(elem.getKey());
-        }
-        return cars;
     }
 
     //Not sure if this should be here
@@ -244,84 +215,49 @@ public class CarController {
     }
 
     // Calls the gas method for each car once
+
+
+
     void gas(int amount) {
-        double gasAmount = ((double) amount) / 100;
-        for (Car car : getCarsFromPairs(carAndImagePaths)
-                ) {
-            car.gas(gasAmount);
-        }
+        CarModel.gas(amount);
     }
 
-    void brake(int amount){
-        double brakeAmount = ((double) amount )/ 100;
-        for (Car car : getCarsFromPairs(carAndImagePaths)
-        ) {
-            car.brake(brakeAmount);
-        }
+    void brake(int amount) {
+        CarModel.brake(amount);
     }
 
     void setTurboOn(){
-        for (Car car : getCarsFromPairs(carAndImagePaths)){
-            if(car instanceof Saab95){
-                ((Saab95) car).setTurboOn();
-                System.out.println(((Saab95) car).getTurbo());
-            }
-        }
-    }
-    void setTurboOff(){
-        for (Car car : getCarsFromPairs(carAndImagePaths)){
-            if(car instanceof Saab95){
-                ((Saab95) car).setTurboOff();
-                System.out.println(((Saab95) car).getTurbo());
-            }
-        }
+        CarModel.setTurboOn();
     }
 
+    void setTurboOff(){
+       CarModel.setTurboOff();
+    }
 
     void liftBed(){
-        for (Car car : getCarsFromPairs(carAndImagePaths)){
-            if(car instanceof Scania){
-                ((Scania) car).setTilt(70);
-                System.out.println(((Scania) car).getAngle());
-            }
-        }
+      CarModel.liftBed();
     }
 
     void lowerBed(){
-        for (Car car : getCarsFromPairs(carAndImagePaths)){
-            if(car instanceof Scania){
-                ((Scania) car).setTilt(0);
-                System.out.println(((Scania) car).getAngle());
-            }
-        }
+        CarModel.lowerBed();
     }
 
     void startAllCars(){
-        for (Car car : getCarsFromPairs(carAndImagePaths)){
-            car.startEngine();
-        }
+        CarModel.startAllCars();
     }
 
     void stopAllCars(){
-        for (Car car : getCarsFromPairs(carAndImagePaths)){
-            car.stopEngine();
-        }
+        CarModel.stopAllCars();
     }
 
     void addCar(){
-        if(carAndImagePaths.size()>=10)
-            return;
-
         Random rand = new Random();
         PairFix<String, String> carToAdd = allPossibleCars.get(rand.nextInt(allPossibleCars.size()));
-        carAndImagePaths.add(new PairFix<Car,String>(CarFactory.getCar(carToAdd.getKey()),carToAdd.getValue()));
+        CarModel.addCar(new PairFix<Car,String>(CarFactory.getCar(carToAdd.getKey()),carToAdd.getValue()));
     }
 
     void removeCar(){
-        if(carAndImagePaths.size()<=0)
-            return;
-
-        carAndImagePaths.remove(carAndImagePaths.size()-1);
+        CarModel.removeCar();
     }
 
     void printPossibleCars(){
